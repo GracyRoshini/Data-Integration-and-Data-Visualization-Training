@@ -1,0 +1,56 @@
+Group,Attendance %,Category,Average Bonus,Average Salary,Feedback Sentiment %,Bonus %,Salary %,Average Present Days,Average Absent Days
+Female,48.92022792022792,Gender,,,,,,,
+Male,51.63392857142857,Gender,,,,,,,
+Other,49.25239616613418,Gender,,,,,,,
+Junior,49.490566037735846,Job Level,,,,,,,
+Lead,47.87596899224806,Job Level,,,,,,,
+Mid,51.23481781376518,Job Level,,,,,,,
+Senior,51.36521739130435,Job Level,,,,,,,
+Development,53.32795698924731,Team,,,,,,,
+HR,49.083743842364534,Team,,,,,,,
+Marketing,50.47435897435897,Team,,,,,,,
+Sales,49.72636815920398,Team,,,,,,,
+Support,46.85795454545455,Team,,,,,,,
+London,50.1609756097561,Location,,,,,,,
+Mumbai,52.34736842105263,Location,,,,,,,
+New York,52.12903225806452,Location,,,,,,,
+Sydney,47.132075471698116,Location,,,,,,,
+Tokyo,47.74431818181818,Location,,,,,,,
+Female,,Gender,3037.2659544159546,,,,,,
+Male,,Gender,3011.729523809524,,,,,,
+Other,,Gender,2945.887987220447,,,,,,
+Junior,,Job Level,,75093.53720754717,,,,,
+Lead,,Job Level,,75990.41589147288,,,,,
+Mid,,Job Level,,75285.05222672064,,,,,
+Senior,,Job Level,,75846.58730434782,,,,,
+Development,,Team,,,54.02830767027675,,,,
+HR,,Team,,,54.6282311296166,,,,
+Marketing,,Team,,,53.36337633559856,,,,
+Sales,,Team,,,53.84705426092242,,,,
+Support,,Team,,,53.40129856465084,,,,
+Q1,,Quarter,,,,61.7191867098674,,,
+Q2,,Quarter,,,,59.47452716396909,,,
+Q3,,Quarter,,,,60.709311676069944,,,
+Q4,,Quarter,,,,58.36910809607517,,,
+London,,Location,,,,,100.0,,
+Mumbai,,Location,,,,,94.79728044964784,,
+New York,,Location,,,,,98.45717366667179,,
+Sydney,,Location,,,,,92.01604493366399,,
+Tokyo,,Location,,,,,94.58355167769017,,
+Female,,Gender,,,,,,49.82,47.96
+Male,,Gender,,,,,,51.76,51.53
+Other,,Gender,,,,,,48.67,49.9
+London,,Please select your location,,,,,,50.7,49.55
+Mumbai,,Please select your location,,,,,,53.28,51.47
+New York,,Please select your location,,,,,,50.42,53.95
+Sydney,,Please select your location,,,,,,49.08,45.78
+Tokyo,,Please select your location,,,,,,46.4,49.28
+Junior,,Job Level,,,,,,50.92,48.09
+Lead,,Job Level,,,,,,47.98,47.78
+Mid,,Job Level,,,,,,52.03,50.53
+Senior,,Job Level,,,,,,49.19,53.92
+Development,,Team,,,,,,56.02,50.13
+HR,,Team,,,,,,48.02,50.16
+Marketing,,Team,,,,,,47.73,52.79
+Sales,,Team,,,,,,50.87,48.76
+Support,,Team,,,,,,47.43,46.23
