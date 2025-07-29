@@ -1,31 +1,28 @@
 import pandas as pd
+import sqlite3
 
-file_path="CustomerSales_2025.xlsx"
+df_excel=pd.read_excel("sales_excel.xlsx")
 
-## pd.ExcelFile(file_path) - It doesn't load the full file into memory—just builds access to its contents
-## .sheet_names - Returns a list of all worksheet names in that Excel file
-sheet_names=pd.ExcelFile(file_path).sheet_names
+df_csv=pd.read_csv("sales_csv.csv")
 
-# print(sheet_names)
+df_json=pd.read_json("sales_json.json")
 
-# ## sheet_names[0] - grabbing the first sheet in the list
-# df_jan=pd.read_excel(file_path,sheet_name=sheet_names[0])
-# print("jan Data\n")
-# print(df_jan)
+conn=sqlite3.connect("sales_db.sqlite")
+df_sql=pd.read_sql_query("SELECT * FROM Sales",conn)
 
-# ## sheet_names[1] - grabbing the second sheet in the list
-# df_feb=pd.read_excel(file_path,sheet_name=sheet_names[1])
-# print("\n Feb data \n")
-# print(df_feb)
+# print(f"\n Data from Excel {df_excel.shape[0]}")  #returns no.of.rows
+# print(f"\n Data from csv {df_csv.shape[0]}")
+# print(f"\n Data from Json {df_json.shape[0]}")
+# print(f"\n Data from sqllite {df_sql.shape[0]}")
 
-df_combined=pd.concat([
-    pd.read_excel(file_path,sheet_name=sheet) 
-    for sheet in sheet_names
-])
 
-df_combined.reset_index(drop=True,inplace=True)
-
+##Combining all sources together
+df_combined=pd.concat([df_excel,df_csv,df_json,df_sql],ignore_index=True)
+# print("\n combined data are below \n")
 # print(df_combined)
 
-## Exporting this combined sheets into another csv file
-# df_combined.to_csv("CustomerSales2025Combined.csv")
+df_combined["TotalAmount"]=df_combined['Quantity']*df_combined['UnitPrice']
+# print(df_combined.head())
+
+# Exporting this combined sources into another csv file
+df_combined.to_csv("MultipleSourcesCombined.csv")
