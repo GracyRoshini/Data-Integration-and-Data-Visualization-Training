@@ -1,0 +1,56 @@
+,OrderID,CustomerName,Email,Product,Quantity,PricePerUnit,OrderDate,City,Country,Total Price
+0,1,ALLISON HILL,jillrhodes[at]miller.com,Laptop,3.0,182.56,1905-06-22,Sydney,Australia,547.6800000000001
+1,2,ALYSSA GONZALEZ,shaneramirez@gmail.com,Laptop,2.0,716.26,1905-07-07,Dubai,UAE,1432.52
+2,3,Melissa Peterson,susanrogers@james.com,Tablet,3.0,959.35,1905-06-29,London,UK,2878.05
+3,4,Andrew Stevens,SMILLER@MONTGOMERY.COM,Smart Watch,1.0,409.61,1905-07-06,Rome,Italy,409.61
+4,5,Patricia Galloway,jamesshawn@martin-kelly.com,Tablet,1.0,873.16,1905-06-24,Dubai,UAE,873.16
+5,6,Maria Lynch,frankgray@watts.com,Laptop,2.0,282.57,1905-06-25,Tokyo,Japan,565.14
+6,7,Renee Morales,robinbradley@edwards.info,Laptop,2.0,814.79,1905-06-20,London,UK,1629.58
+7,8,David Hoffman,zhurst@yahoo.com,Smart Watch,,182.65,1905-07-02,Sydney,Australia,
+8,9,Brenda Snyder PhD,courtneyconner@carlson-cruz.org,Mobile,,,,London,UK,
+9,10,Kendra Maddox DVM,maldonadoamanda@mack-peterson.com,Headphones,,972.52,1905-06-12,New York,USA,
+10,11,Aaron Bowen,williamrodriguez@hotmail.com,Tablet,1.0,200.25,,Tokyo,Japan,200.25
+11,12,Mark Lynch,kathryn88@george.com,Headphones,2.0,774.39,1905-06-14,Sydney,Australia,1548.78
+12,13,SHERRY DECKER,brianhumphrey[at]gmail.com,Tablet,2.0,,1905-07-04,London,UK,
+13,14,Rose Spence,donnaarroyo@baker.biz,Mobile,,206.87,1905-07-08,Rome,Italy,
+14,15,,pcarney@yahoo.com,Tablet,,667.38,1905-07-08,Sydney,Australia,
+15,16,Jocelyn Wright,andrew83@robinson.com,Headphones,2.0,,1905-06-19,New York,USA,
+16,17,Shannon Jones,elizabeth38@cummings.org,Smart Watch,2.0,737.18,1905-06-11,Rome,Italy,1474.36
+17,18,John Russell,HOPKINSMICHAEL[at]OWENS-DANIEL.COM,Smart Watch,3.0,493.67,1905-06-24,London,UK,1481.01
+18,19,Gerald Hensley,jameswest@white-ford.com,Headphones,,224.31,1905-07-04,London,UK,
+19,20,Savannah Garcia,housemelinda@russell.com,Laptop,1.0,856.26,1905-06-14,Dubai,UAE,856.26
+20,21,Anthony Gray,SARA74@YAHOO.COM,Smart Watch,3.0,795.87,1905-06-28,Sydney,Australia,2387.61
+21,22,WHITNEY PETERS,JAMESROBINSON@GMAIL.COM,Headphones,1.0,104.31,1905-06-18,Sydney,Australia,104.31
+22,23,Amy Edwards,hshaw@brown.com,Laptop,1.0,273.44,1905-06-24,Rome,Italy,273.44
+23,24,Kurt Leonard,kwilson@riley.org,Headphones,3.0,244.05,1905-06-08,Berlin,Germany,732.1500000000001
+24,25,Kevin Mills,elizabethedwards@yahoo.com,Laptop,1.0,998.53,1905-06-12,London,UK,998.53
+25,26,,ELLISYOLANDA@JONES.NET,Mobile,3.0,466.28,1905-06-27,Tokyo,Japan,1398.84
+26,27,Gregory Jones,justin78@turner.net,Tablet,1.0,177.58,1905-07-05,London,UK,177.58
+27,28,Kristen Huynh,josephpreston@tran.com,tablet,,912.75,,Toronto,Canada,
+28,29,,rebecca01@hotmail.com,Mobile,,456.3,,London,UK,
+29,30,Donald Smith,evan78@patterson.com,Headphones,2.0,89.74,1905-06-15,New York,USA,179.48
+30,31,Jacob Tran,bobbydiaz@gmail.com,smart watch,2.0,274.9,1905-06-17,Paris,France,549.8
+31,32,Michael Estrada,vdickson@gmail.com,Mobile,3.0,716.21,1905-06-25,New York,USA,2148.63
+32,33,Sharon Cherry,vjohnson@patton-jenkins.com,mobile,2.0,,1905-06-25,Mumbai,India,
+33,34,MICHAEL REYES,dwalker@torres-pope.com,Headphones,3.0,159.57,1905-06-29,Paris,France,478.71
+34,35,Corey Murphy,michael86@zavala.com,tablet,,535.85,1905-07-04,Rome,Italy,
+35,36,Cassandra Estes,rodriguezryan@hotmail.com,Mobile,3.0,951.43,1905-06-16,Rome,Italy,2854.29
+36,37,Larry Dixon,jonathanfletcher@gmail.com,Smart Watch,3.0,330.87,1905-07-05,Toronto,Canada,992.61
+37,38,Kimberly Ball,ryan59@alvarado-martinez.com,Smart Watch,1.0,249.67,1905-06-15,Rome,Italy,249.67
+38,39,Jason Powell,jamesortega@yahoo.com,Mobile,1.0,680.66,1905-07-13,London,UK,680.66
+39,40,Carrie Carroll,torresjason@hotmail.com,Laptop,1.0,501.38,1905-06-26,London,UK,501.38
+40,41,Julie Ramos,yleon@jackson.org,Smart Watch,2.0,703.24,1905-06-30,London,UK,1406.48
+41,42,Trevor Young,lindsayherNULLdez@gmail.com,Headphones,2.0,165.29,1905-07-12,Dubai,UAE,330.58
+42,43,Miss Patricia Gibson,psnyder@douglas.com,Headphones,,570.48,1905-06-22,Dubai,UAE,
+43,44,CHRISTOPHER RUBIO,grantsamantha@gmail.com,Smart Watch,2.0,123.61,1905-06-24,Tokyo,Japan,247.22
+44,45,John Schmidt,usalazar@hotmail.com,mobile,2.0,,1905-06-18,Sydney,Australia,
+45,46,Kimberly Merritt,pgreen@hotmail.com,Laptop,,945.6,1905-06-17,Toronto,Canada,
+46,47,Kelly Sims,sjones@gmail.com,Headphones,2.0,309.29,1905-06-21,Toronto,Canada,618.58
+47,48,Steven Miller,patrickherNULLdez@brown.com,Mobile,1.0,612.3,1905-06-17,London,UK,612.3
+48,49,ANTONIO WALL,gateskathy@yahoo.com,mobile,,773.17,1905-07-08,Toronto,Canada,
+49,50,GUY MOLINA,tracynelson@yahoo.com,Tablet,2.0,792.17,1905-06-19,New York,USA,1584.34
+50,51,Renee Morales,robinbradley@edwards.info,Laptop,2.0,814.79,2023-11-16,London,UK,1629.58
+51,52,Savannah Garcia,housemelinda@russell.com,Laptop,1.0,856.26,2025-05-30,Dubai,UAE,856.26
+52,53,Melissa Peterson,susanrogers@james.com,Tablet,3.0,959.35,2024-11-08,London,UK,2878.05
+53,54,CHRISTOPHER RUBIO,grantsamantha@gmail.com,Smart Watch,2.0,123.61,2024-07-17,Tokyo,Japan,247.22
+54,55,Kimberly Ball,ryan59@alvarado-martinez.com,Smart Watch,1.0,249.67,2024-08-25,Rome,Italy,249.67
