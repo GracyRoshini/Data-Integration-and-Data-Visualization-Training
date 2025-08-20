@@ -1,0 +1,313 @@
+-- Task 1: Setup Database & Schema
+
+-- 1. Create a new database SALES_DB and schema RAW_SCHEMA. 2. Create file formats for CSV and Parquet data (csv_format, parquet_format). 3. Create a named stage sales_stage in RAW_SCHEMA.
+
+Create DATABASE SALES_DB;
+
+CREATE SCHEMA SALES_DB.RAW_SCHEMA;
+
+CREATE SCHEMA SALES_DB.BRONZE;
+
+CREATE SCHEMA SALES_DB.SILVER;
+
+CREATE SCHEMA SALES_DB.GOLD;
+
+CREATE OR REPLACE FILE FORMAT SALES_DB.RAW_SCHEMA.csv_file_format
+Type='CSV'
+FIELD_OPTIONALLY_ENCLOSED_BY='"'
+SKIP_HEADER=1;
+
+-- CREATE OR REPLACE FILE FORMAT RAW_SCHEMA.PARQUET_file_format
+-- Type='PARQUET'
+-- FIELD_DELIMITER=','
+-- SKIP_HEADER=1;
+
+
+-- Task 2: Load Raw Data
+
+-- 1. Create a staging table sales_raw with JSON columns for product_details and customer_info.
+-- 2. Create another staging table Raw_Parquet_table for Parquet data. 
+-- 3. Load sales_data_1000.csv and sales_data_1000.parquet into the staging tables.
+
+CREATE OR REPLACE STAGE RAW_SCHEMA.sales_stage;
+
+--Load CSV into product_raw
+COPY INTO RAW_SCHEMA.sales_raw
+FROM @RAW_SCHEMA.sales_stage/sales_data_dirty.csv
+FILE_FORMAT=(FORMAT_NAME=RAW_SCHEMA.csv_file_format,
+ERROR_ON_COLUMN_COUNT_MISMATCH=FALSE)
+ON_ERROR='CONTINUE';
+
+-- SELECT * FROM TABLE(
+--   VALIDATE(
+--     "SALES_DB"."RAW_SCHEMA"."SALES_STAGE"."SALES_DATA_DIRTY.CSV",
+--     FORMAT_NAME => 'RAW_SCHEMA.csv_file_format'
+--   )
+-- );
+
+
+COPY INTO RAW_SCHEMA.sales_raw
+FROM @RAW_SCHEMA.sales_stage
+FILE_FORMAT=(FORMAT_NAME=RAW_SCHEMA.csv_file_format)
+validation_mode='Return_all_errors';
+
+CREATE OR REPLACE TABLE RAW_SCHEMA.sales_raw (
+   transaction_id VARCHAR(100),
+   region VARCHAR(100),
+   country VARCHAR(100),
+   product VARCHAR(100),
+   customer VARCHAR(100),
+   sales_rep VARCHAR(100),
+   transaction_date VARCHAR(100),
+   timestamp varchar(100),
+   quantity varchar(100),
+   unit_price varchar(100),
+   total_amount varchar(100),
+   order_status VARCHAR(100),
+   payment_method VARCHAR(100),
+   -- product_category STRING,
+   -- product_subcategory STRING,
+   product_details STRING,
+   customer_info STRING);
+   -- shipping_method STRING,
+   -- discount NUMBER(5,2),
+   -- tax NUMBER(5,2),
+   -- delivery_status STRING,
+   -- notes STRING
+);
+
+
+
+
+-- Task 3: Data Quality Checks
+
+-- 1. Write queries to count total vs distinct transactions, null values, and negative values.
+
+--COUNT
+SELECT COUNT(*) AS total_transactions
+FROM RAW_SCHEMA.sales_raw;
+
+--DISTINCT
+SELECT COUNT(DISTINCT transaction_id) AS distinct_transactions
+FROM RAW_SCHEMA.sales_raw;
+
+-- SELECT COUNT(*) AS negative_values_count
+-- FROM sales_db.raw_schema.sales_raw
+-- WHERE unit_price < 0;
+
+--NULL VALUES
+Select count(*) as count_of_rows_containing_nullValues 
+from RAW_SCHEMA.sales_raw
+where transaction_id IS NULL OR
+   region IS NULL OR
+   country IS NULL OR
+   product IS NULL OR
+   customer IS NULL OR
+   sales_rep IS NULL OR
+   transaction_date IS NULL OR
+   timestamp IS NULL OR
+   quantity IS NULL OR
+   unit_price IS NULL OR
+   total_amount IS NULL OR
+   order_status IS NULL OR
+   payment_method IS NULL OR
+   product_details IS NULL OR
+   customer_info IS NULL;
+
+
+
+-- task 4
+CREATE OR REPLACE TABLE CLEAN_SCHEMA.sales_flattened AS
+SELECT
+    transaction_id,
+    product_details:brand::STRING AS brand,
+    product_details:category::STRING AS product_category,
+    product_details:ratings::FLOAT AS product_rating,
+    product_details:specs AS product_specs,
+    product_details:subcategory::STRING AS product_subcategory,
+    customer_info:demographics::STRING AS demographics,
+    customer_info:preferences::STRING AS preferences,
+    customer_info:segment::STRING AS segment
+FROM RAW_SCHEMA.sales_raw_refined;
+
+-- Task 5: Clean & Transform
+
+-- 1. Create a cleaned table sales_clean in CLEAN_SCHEMA. 
+-- 2. Apply transformations like TRY_TO_DATE, replacing negatives with NULL, removing missing values.
+
+CREATE OR REPLACE TABLE RAW_SCHEMA.sales_raw_refined AS
+SELECT
+    transaction_id,
+    region,
+    country,
+    product,
+    customer,
+    sales_rep,
+    TRY_TO_DATE(transaction_date, 'DD-MM-YYYY') AS transaction_date,
+    timestamp,
+    TRY_CAST(quantity AS INTEGER) AS quantity,
+    TRY_CAST(unit_price AS FLOAT) AS unit_price,
+    TRY_CAST(total_amount AS FLOAT) AS total_amount,
+    order_status,
+    payment_method,
+    TRY_PARSE_JSON(product_details) AS product_details,
+    TRY_PARSE_JSON(customer_info) AS customer_info
+FROM RAW_SCHEMA.sales_raw
+WHERE quantity IS NOT NULL
+  OR unit_price IS NOT NULL
+  OR total_amount IS NOT NULL
+  OR transaction_id IS NOT NULL
+  OR region IS NOT NULL
+  OR country IS NOT NULL
+  OR product IS NOT NULL
+  OR customer IS NOT NULL
+  OR sales_rep IS NOT NULL
+  OR transaction_date IS NOT NULL
+  OR order_status IS NOT NULL
+  OR payment_method IS NOT NULL;
+
+Create Or Replace Schema Clean_Schema;
+ 
+Select * from clean_schema.sales_flattened;
+
+create or replace table clean_SCHEMA.sales_raw_cleaned AS
+SELECT
+    transaction_id,
+    region,
+    country,
+    product,
+    customer,
+    sales_rep,
+    TRY_TO_DATE(transaction_date, 'DD-MM-YYYY') AS transaction_date,
+    timestamp,
+    TRY_CAST(quantity AS INTEGER) AS quantity,
+    TRY_CAST(unit_price AS FLOAT) AS unit_price,
+    TRY_CAST(total_amount AS FLOAT) AS total_amount,
+    order_status,
+    payment_method,
+    TRY_PARSE_JSON(product_details) AS product_details,
+    TRY_PARSE_JSON(customer_info) AS customer_info
+FROM RAW_SCHEMA.sales_raw
+WHERE quantity IS NOT NULL
+  OR unit_price IS NOT NULL
+  OR total_amount IS NOT NULL
+  OR transaction_id IS NOT NULL
+  OR region IS NOT NULL
+  OR country IS NOT NULL
+  OR product IS NOT NULL
+  OR customer IS NOT NULL
+  OR sales_rep IS NOT NULL
+  OR transaction_date IS NOT NULL
+  OR order_status IS NOT NULL
+  OR payment_method IS NOT NULL;
+
+select * from CLEAN_SCHEMA.sales_raw_cleaned;
+delete from CLEAN_SCHEMA.sales_raw_cleaned
+WHERE quantity IS NULL
+  OR unit_price IS NULL
+  OR total_amount IS NULL
+  OR transaction_id IS NULL
+  OR region IS NULL
+  OR country IS NULL
+  OR product IS NULL
+  OR customer IS NULL
+  OR sales_rep IS NULL
+  OR transaction_date IS NULL
+  OR order_status IS NULL
+  OR payment_method IS NULL;
+
+ 
+select * from CLEAN_SCHEMA.sales_raw_cleaned
+ 
+
+ --task 6
+ALTER TABLE CLEAN_SCHEMA.sales_raw_cleaned 
+ADD COLUMN profit_margin FLOAT;
+
+ALTER TABLE CLEAN_SCHEMA.sales_raw_cleaned 
+ADD COLUMN sales_quarter STRING;
+
+-- Update with calculated values
+UPDATE CLEAN_SCHEMA.sales_raw_cleaned
+SET profit_margin = total_amount * 0.2,
+    sales_quarter = CASE 
+      WHEN MONTH(transaction_date) BETWEEN 1 AND 3 THEN 'Q1'
+      WHEN MONTH(transaction_date) BETWEEN 4 AND 6 THEN 'Q2'
+      WHEN MONTH(transaction_date) BETWEEN 7 AND 9 THEN 'Q3'
+      WHEN MONTH(transaction_date) BETWEEN 10 AND 12 THEN 'Q4'
+      ELSE 'Unknown'
+    END;
+
+    
+--task 7
+CREATE OR REPLACE TABLE SALES_DB.GOLD.FACT_SALES AS
+SELECT 
+  transaction_id,
+  transaction_date,
+  timestamp,
+  quantity,
+  unit_price,
+  total_amount,
+  profit_margin,
+  sales_quarter,
+  order_status,
+  payment_method,
+  product AS product_id,
+  customer AS customer_id,
+  sales_rep AS sales_rep_id,
+  region AS region_id,
+  product_details,
+  customer_info
+FROM CLEAN_SCHEMA.sales_raw_cleaned;
+
+CREATE OR REPLACE TABLE SALES_DB.GOLD.DIM_REGION AS
+SELECT DISTINCT region, country
+FROM CLEAN_SCHEMA.sales_raw_cleaned;
+
+CREATE OR REPLACE TABLE SALES_DB.GOLD.DIM_PRODUCT AS
+SELECT DISTINCT product, product_details
+FROM CLEAN_SCHEMA.sales_raw_cleaned;
+
+CREATE OR REPLACE TABLE SALES_DB.GOLD.DIM_CUSTOMER AS
+SELECT DISTINCT customer, customer_info
+FROM CLEAN_SCHEMA.sales_raw_cleaned;
+
+
+
+--task 8
+SELECT REGION, COUNTRY, SUM(TOTAL_AMOUNT) AS TOTAL_SALES 
+FROM SALES_DB.GOLD.FACT_SALES 
+GROUP BY REGION, COUNTRY 
+ORDER BY TOTAL_SALES DESC;
+
+SELECT customer_info:segment::STRING AS customer_segment,
+SUM(total_amount) AS total_sales
+FROM SALES_DB.GOLD.FACT_SALES
+GROUP BY customer_segment
+ORDER BY total_sales DESC;
+    
+SELECT product_details:brand::STRING AS product_brand,
+SUM(total_amount) AS total_sales
+FROM SALES_DB.GOLD.FACT_SALES
+GROUP BY product_brand
+ORDER BY total_sales DESC;
+
+SELECT order_status, COUNT(*) AS order_count
+FROM SALES_DB.GOLD.FACT_SALES
+GROUP BY order_status
+ORDER BY order_count DESC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
